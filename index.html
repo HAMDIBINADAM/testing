@@ -1,57 +1,196 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Jemputan Jamuan</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jamuan Bekwoh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      text-align: center;
-      padding: 50px;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f0e6, #e8dcc7);
+      overflow-x:hidden;
     }
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      max-width: 500px;
-      margin: auto;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    .container {
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:20px;
+      animation: fadeIn 1.5s ease;
     }
+
     h1 {
-      color: #333;
+      font-family: 'Playfair Display', serif;
+      font-size:4rem;
+      color:#0f2d1f;
+      letter-spacing:3px;
+      animation: slideDown 1s ease;
     }
-    p {
-      font-size: 16px;
-      line-height: 1.6;
+
+    h2 {
+      color:#b89b5e;
+      margin-bottom:10px;
+      letter-spacing:5px;
     }
+
+    .card {
+      margin-top:30px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      border-radius:20px;
+      padding:30px;
+      width:90%;
+      max-width:500px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.15);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .info {
+      text-align:left;
+      margin:10px 0;
+      font-size:1.1rem;
+    }
+
+    .label {
+      font-weight:600;
+      color:#0f2d1f;
+    }
+
+    .highlight {
+      color:#b89b5e;
+      font-weight:500;
+    }
+
     .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: black;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
+      margin-top:20px;
+      padding:12px 25px;
+      border:none;
+      border-radius:30px;
+      background:#0f2d1f;
+      color:white;
+      cursor:pointer;
+      font-size:1rem;
+      transition:0.3s;
+    }
+
+    .btn:hover {
+      background:#b89b5e;
+      transform:scale(1.05);
+    }
+
+    .music-btn {
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      background:#0f2d1f;
+      color:white;
+      border:none;
+      border-radius:50%;
+      width:50px;
+      height:50px;
+      cursor:pointer;
+      font-size:18px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+
+    @keyframes slideDown {
+      from { transform:translateY(-50px); opacity:0; }
+      to { transform:translateY(0); opacity:1; }
+    }
+
+    @keyframes float {
+      0%,100% { transform:translateY(0); }
+      50% { transform:translateY(-10px); }
+    }
+
+    .sparkle {
+      position:fixed;
+      width:6px;
+      height:6px;
+      background:#b89b5e;
+      border-radius:50%;
+      pointer-events:none;
+      animation: sparkleAnim 1s linear forwards;
+    }
+
+    @keyframes sparkleAnim {
+      from { opacity:1; transform:scale(1); }
+      to { opacity:0; transform:scale(3); }
     }
   </style>
 </head>
 <body>
 
-<div class="card">
-  <h1>JAMUAN BEKWOH UNIT MATEMATIK</h1>
-  
-  <p><strong>Tarikh:</strong> 11 Mei 2026 (Isnin)</p>
-  <p><strong>Masa:</strong> 12.30 tengah hari – 3.00 petang</p>
-  <p><strong>Tempat:</strong><br>
-  Hotel Holiday Villa,<br>
-  Wakaf Che Yeh, Kota Bharu, Kelantan</p>
+  <!-- Background Music -->
+  <audio id="bg-music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+  </audio>
 
-  <p><strong>Tema Pakaian:</strong> Old Money<br>
-  (Mengikut etika pemakaian rasmi)</p>
+  <div class="container">
+    <h2>JEMPUTAN KE</h2>
+    <h1>JAMUAN BEKWOH</h1>
 
-  <a class="btn" href="https://maps.google.com" target="_blank">Lihat Lokasi</a>
-</div>
+    <div class="card">
+      <div class="info"><span class="label">Tarikh:</span> <span class="highlight">11 Mei 2026 (Isnin)</span></div>
+      <div class="info"><span class="label">Masa:</span> <span class="highlight">12.30 tengah hari – 3.00 petang</span></div>
+      <div class="info"><span class="label">Tempat:</span> <span class="highlight">Holiday Villa, Wakaf Che Yeh</span></div>
+      <div class="info"><span class="label">Tema:</span> <span class="highlight">Old Money</span></div>
 
+      <button class="btn" onclick="showMessage()">RSVP</button>
+    </div>
+  </div>
+
+  <!-- Music Control Button -->
+  <button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+  <script>
+    const music = document.getElementById("bg-music");
+    let isPlaying = false;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        music.pause();
+      } else {
+        music.play();
+      }
+      isPlaying = !isPlaying;
+    }
+
+    function showMessage() {
+      alert("Kami menantikan kehadiran anda! ✨");
+    }
+
+    document.addEventListener("mousemove", function(e) {
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.style.left = e.pageX + "px";
+      sparkle.style.top = e.pageY + "px";
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 1000);
+    });
+
+    // Auto play after first interaction (browser policy safe)
+    document.addEventListener("click", () => {
+      if (!isPlaying) {
+        music.play();
+        isPlaying = true;
+      }
+    }, { once: true });
+
+  </script>
 </body>
 </html>
